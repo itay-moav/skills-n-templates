@@ -80,6 +80,7 @@ templates/        # Full project starters
 | **python-library-inspector** | Inspects installed Python packages in `.venv/` for accurate, version-specific API details |
 | **php-library-inspector** | Inspects installed Composer packages in `vendor/` for accurate, version-specific API details |
 | **npm-library-inspector** | Inspects installed npm packages and type definitions in `node_modules/` for accurate, version-specific API details |
+| **rust-library-inspector** | Inspects installed Rust crate sources in Cargo's registry cache for accurate, version-specific API details |
 
 All library inspector agents enforce reading actual source code instead of relying on training data or memory, which may be outdated.
 
