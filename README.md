@@ -68,10 +68,14 @@ Then follow the copy steps from Option 1.
 agents/           # Claude Code subagents (.md with YAML frontmatter)
 skills/           # Claude Code skills (.md with YAML frontmatter)
 templates/        # Full project starters
+recipes/          # Setup guides combining templates + agents + skills
+hook-packs/       # Claude Code hook scripts (sound alerts, linters, etc.)
 ```
 
 - **Agents** and **skills** follow the Claude Code standard — copy them directly into `.claude/agents/` or `.claude/skills/`.
 - **Templates** are full project starters with their own README and files.
+- **Recipes** recommend which pieces to combine for a given project type, with step-by-step setup.
+- **Hook packs** are shell scripts that plug into Claude Code's [hooks system](https://docs.anthropic.com/en/docs/claude-code/hooks) via `.claude/settings.json`.
 
 ## Available Agents
 
@@ -81,6 +85,7 @@ templates/        # Full project starters
 | **php-library-inspector** | Inspects installed Composer packages in `vendor/` for accurate, version-specific API details |
 | **npm-library-inspector** | Inspects installed npm packages and type definitions in `node_modules/` for accurate, version-specific API details |
 | **rust-library-inspector** | Inspects installed Rust crate sources in Cargo's registry cache for accurate, version-specific API details |
+| **frontend-master** | Delegated frontend development agent. Handles components, styling, API integration, testing. Tech-agnostic — discovers the stack from CLAUDE.md |
 
 All library inspector agents enforce reading actual source code instead of relying on training data or memory, which may be outdated.
 
@@ -90,7 +95,37 @@ _None yet._
 
 ## Available Templates
 
-_None yet._
+| Template | Description |
+|----------|-------------|
+| **react-vite-shadcn** | React 19 + Vite 6 + Tailwind CSS 4 + ShadCN UI starter with service layer, logging, and testing setup |
+
+## Recipes
+
+Recipes recommend which template + agents + skills to combine for a specific project type.
+
+| Recipe | Template | Agents | Description |
+|--------|----------|--------|-------------|
+| **react-spa-with-api** | react-vite-shadcn | frontend-master, npm-library-inspector | Full-stack React SPA with backend API integration |
+
+## Hook Packs
+
+Hook packs add automated behaviors to Claude Code via the [hooks system](https://docs.anthropic.com/en/docs/claude-code/hooks). Each pack includes a README with installation instructions and the hook script(s) to copy into your project.
+
+| Hook Pack | Description |
+|-----------|-------------|
+| **sound-alerts** | Plays system sounds when Claude needs input or finishes a task (macOS/Linux) |
+| **frontend-lint** | Runs ESLint, Prettier, and frontend tests on changed files when Claude finishes a turn |
+| **backend-lint** | Runs Black, isort, and flake8 on changed Python files when Claude finishes a turn |
+
+#### Installing hook packs
+
+1. Copy the hook script into your project:
+   ```bash
+   mkdir -p /path/to/project/hooks
+   cp hook-packs/frontend-lint/frontend-lint.sh /path/to/project/hooks/
+   chmod +x /path/to/project/hooks/frontend-lint.sh
+   ```
+2. Add the hook entry to `.claude/settings.json` as described in the pack's README.
 
 ## License
 

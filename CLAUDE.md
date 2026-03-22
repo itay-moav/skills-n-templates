@@ -12,14 +12,23 @@ skills/
 templates/
   <template-name>/
     README.md            # What it does, how to use it
-    CLAUDE.md            # Agent instructions (optional)
-    files/               # The actual project files
+    files/
+      CLAUDE.md          # Project CLAUDE.md included in the template
+      ...                # The actual project files
+recipes/
+  <recipe-name>.md      # Project setup guide (.md with YAML frontmatter)
+hook-packs/
+  <pack-name>/
+    README.md            # What it does, how to install it
+    *.sh                 # Hook script(s) to copy into the project
 ```
 
 ### Key conventions
 
 - **Agents** and **skills** are `.md` files with YAML frontmatter, following the Claude Code standard. Users copy them directly into their project's `.claude/agents/` or `.claude/skills/` directory.
-- **Templates** are full project starters in subdirectories with their own README and files.
+- **Templates** are full project starters in subdirectories with their own README and files. The `files/` directory contains a complete project including a `CLAUDE.md` for that project.
+- **Recipes** are `.md` files with YAML frontmatter listing which template + agents + skills to combine for a specific project type, with setup instructions.
+- **Hook packs** are directories containing a README with installation instructions and shell scripts that plug into Claude Code's hooks system (configured in `.claude/settings.json`).
 
 ### User install flow
 
